@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/btnSearch"
         android:ems="10"
-        android:hint="Input symbol for searching" />
+        android:hint="Input symbol"
+        android:inputType="text" />
 
 </RelativeLayout>

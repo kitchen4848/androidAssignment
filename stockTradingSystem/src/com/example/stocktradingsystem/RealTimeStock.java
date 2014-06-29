@@ -32,7 +32,7 @@ public class RealTimeStock extends Activity {
 	Button btnSearch;
 	EditText txtSearch;
 	FetchPageTask task = null;
-	String symbol;
+	String symbol="";
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,12 +115,16 @@ public class RealTimeStock extends Activity {
 	}
 	
 	public void clickedSearch(View view){
-		symbol = txtSearch.getText().toString();
 		
+		if(txtSearch.getText().toString().equals("")){
+			
+		}else{
+			symbol = txtSearch.getText().toString();
 		if (task == null || task.getStatus().equals(AsyncTask.Status.FINISHED)) {
 					task = new FetchPageTask();
 					task.execute("http://www.alanpo.com/itp4501/stock_quote.php?stock_no="+symbol);
 				}
+		}
 	}
 }
 
