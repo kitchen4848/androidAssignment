@@ -34,7 +34,7 @@ public class RealTimeStock extends Activity {
 
 			if (result != null) {
 				ret = "Mode: " + result.getMode() + "\n";
-				ret += "Symbol: " + symbol + "\n";
+				ret += "Symbol: " + result.getSymbol() + "\n";
 				ret += "Name: " + result.getChinese() + "(" + result.getEnglish() + ")" + "\n";
 				ret += "sspn: " + result.getSspn() + "\n";
 				ret += "Price: " + result.getPrice() + "\n";

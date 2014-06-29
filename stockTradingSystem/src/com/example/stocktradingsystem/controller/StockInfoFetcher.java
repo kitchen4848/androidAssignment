@@ -42,8 +42,8 @@ public abstract class StockInfoFetcher {
 		if (chk < 0 || chk > 99999)
 			return false;
 
-		String reformatted_id = String.format(Locale.US, "%5d", chk);
-
+		String reformatted_id = String.format(Locale.US, "%05d", chk);
+//		android.util.Log.d("diu", reformatted_id);
 		asyncTask.execute(String.format(providerSearchUrl, reformatted_id));
 		return true;
 	}
