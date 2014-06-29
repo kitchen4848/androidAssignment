@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Stock Trading System"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lblPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblUserName"
+        android:layout_below="@+id/lblUserName"
+        android:layout_marginTop="37dp"
+        android:text="Password:" />
+
+    <TextView
+        android:id="@+id/lblUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lblTitle"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="48dp"
+        android:text="UserName:" />
+
+    <EditText
+        android:id="@+id/txtUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblUserName"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/lblUserName"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblPassword"
+        android:layout_alignLeft="@+id/txtUserName"
+        android:duplicateParentState="false"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblPassword"
+        android:layout_alignRight="@+id/txtPassword"
+        android:layout_centerVertical="true"
+        android:text="Login" 
+        android:onClick="clickedLogin"/>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnLogin"
+        android:layout_alignRight="@+id/btnLogin"
+        android:layout_below="@+id/btnLogin"
+        android:layout_marginTop="18dp"
+        android:onClick="clickedCancel"
+        android:text="Cancel" />
+
+</RelativeLayout>
