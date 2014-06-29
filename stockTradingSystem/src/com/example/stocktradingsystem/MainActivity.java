@@ -13,6 +13,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -20,6 +21,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	EditText txtPassword;
 	Button btnLogin;
 	Button btnCancel;
+	TextView txt1;
+	TextView txt2;
 	
 
 	@Override
@@ -32,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		btnLogin.setOnClickListener(this);
 		btnCancel = (Button)findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(this);
-		loadtextbox();
+		load();
 	}
 	
 	
@@ -43,11 +46,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				Intent intent = new Intent(MainActivity.this, StockMeun.class);
 				startActivity(intent);
 				
-				SharedPreferences userDetails = getApplicationContext().getSharedPreferences("userdetails", MODE_PRIVATE);
-				Editor edit = userDetails.edit();
-				edit.clear();
+				SharedPreferences settings = getApplicationContext().getSharedPreferences("userDetails", 0);
+				SharedPreferences.Editor edit = settings.edit();
+				//edit.clear();
 				edit.putString("username", txtUserName.getText().toString());
+				android.util.Log.d("sts-userDetails<-sp", txtUserName.getText().toString());
 				edit.putString("password", txtPassword.getText().toString());
+				android.util.Log.d("sts-userDetails<-sp", txtPassword.getText().toString());
 				edit.commit();
 				
 				this.finish();
@@ -60,13 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	
-	public void loadtextbox(){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		txtUserName.setText(prefs.getString("UserName", null));
-		txtUserName.setText(prefs.getString("Password", null));
-	}
-	
+
 	public void ShowAlert(){
 		Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Warning");
@@ -78,6 +77,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		};
 		alert.setNeutralButton("OK",OkClick );
 		alert.show();
+	}
+	
+	public void load(){
+		SharedPreferences setting = getApplicationContext().getSharedPreferences("userDetails", 0);
+		String name = setting.getString("username","");
+		String password = setting.getString("password","");
+		txtUserName.setText(name);
+		txtPassword.setText(password);
 	}
 	
 
