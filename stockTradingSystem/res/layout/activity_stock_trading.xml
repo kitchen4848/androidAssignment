@@ -9,8 +9,39 @@
     tools:context=".StockTrading" >
 
     <TextView
+        android:id="@+id/txtStockTrading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/stock_trading"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txtStockTradingDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtStockTrading"
+        android:layout_below="@+id/txtStockTrading"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/stock_trading_description"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/btnTradingSell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtStockTradingDescription"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/sell" />
+
+    <Button
+        android:id="@+id/btnTradingBuy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnTradingSell"
+        android:layout_alignLeft="@+id/btnTradingSell"
+        android:text="@string/buy" />
 
 </RelativeLayout>
