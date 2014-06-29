@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		btnLogin.setOnClickListener(this);
 		btnCancel = (Button)findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(this);
-		//loadtextbox();
+		loadtextbox();
 	}
 	
 	
@@ -61,11 +61,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	/*public void loadtextbox(){
+	public void loadtextbox(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		txtUserName.setText(prefs.getString("UserName", null));
 		txtUserName.setText(prefs.getString("Password", null));
-	}*/
+	}
 	
 	public void ShowAlert(){
 		Builder alert = new AlertDialog.Builder(this);

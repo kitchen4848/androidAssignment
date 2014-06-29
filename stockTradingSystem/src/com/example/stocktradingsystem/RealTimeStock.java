@@ -21,25 +21,27 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RealTimeStock extends Activity {
 	TextView tvdata;
+	Button btnSearch;
+	EditText txtSearch;
 	FetchPageTask task = null;
+	String symbol;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_real_time_stock);
 		tvdata = (TextView)findViewById(R.id.tvdata);
-		
-		if (task == null || 
-		           task.getStatus().equals(AsyncTask.Status.FINISHED)) {
-					task = new FetchPageTask();
-					task.execute("http://www.alanpo.com/itp4501/stock_quote.php?stock_no=00001");
-					
-				}
+		btnSearch = (Button)findViewById(R.id.btnSearch);
+		txtSearch = (EditText)findViewById(R.id.txtSearch);
+
+
 	}
 	
 	private class FetchPageTask extends AsyncTask<String,Void,String>{
@@ -110,6 +112,15 @@ public class RealTimeStock extends Activity {
 		protected void onPostExecute(String result){
 			tvdata.setText(result);
 		}
+	}
+	
+	public void clickedSearch(View view){
+		symbol = txtSearch.getText().toString();
+		
+		if (task == null || task.getStatus().equals(AsyncTask.Status.FINISHED)) {
+					task = new FetchPageTask();
+					task.execute("http://www.alanpo.com/itp4501/stock_quote.php?stock_no="+symbol);
+				}
 	}
 }
 
