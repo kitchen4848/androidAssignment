@@ -1,20 +1,8 @@
 package com.example.stocktradingsystem;
 
-import java.io.IOException;
-import java.net.URL;
+import com.example.stocktradingsystem.controller.*;
 
-import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.example.stocktradingsystem.controller.InternetFetcher;
-import com.example.stocktradingsystem.controller.StockInfo;
-import com.example.stocktradingsystem.controller.StockInfoFetcher;
-
-import android.R.integer;
 import android.app.Activity;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -92,10 +80,13 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 
 	@Override
 	public void onClick(View v) {
-		if (v == this.btnBuyBack) {
+		switch (v.getId()) {
+		case R.id.btnBuyBack:
 			this.finish();
-		} else if (v == this.btnBuyCheckout) {
+			break;
+		case R.id.btnBuyCheckout:
 			
+			break;
 		}
 	}
 	

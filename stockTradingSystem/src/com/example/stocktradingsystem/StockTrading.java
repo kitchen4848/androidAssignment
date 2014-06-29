@@ -35,12 +35,15 @@ public class StockTrading extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (v == this.btnTradingBuy) {
-			Intent i = new Intent(StockTrading.this, StockTradingBuy.class);
-			startActivity(i);
-		} else if (v == this.btnTradingSell) {
-			Intent i = new Intent(StockTrading.this, StockTradingSell.class);
-			startActivity(i);
+		switch (v.getId()) {
+		case R.id.btnTradingBuy:
+			Intent ittStockTradingBuy = new Intent(StockTrading.this, StockTradingBuy.class);
+			startActivity(ittStockTradingBuy);
+			break;
+		case R.id.btnTradingSell:
+			Intent ittStockTradingSell = new Intent(StockTrading.this, StockTradingSell.class);
+			startActivity(ittStockTradingSell);
+			break;
 		}
 	}
 }
