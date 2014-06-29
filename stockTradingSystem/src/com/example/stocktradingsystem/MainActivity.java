@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Intent intent = new Intent(MainActivity.this, StockMeun.class);
 				startActivity(intent);
 				
-				SharedPreferences userDetails = context.getSharedPreferences("userdetails", MODE_PRIVATE);
+				SharedPreferences userDetails = getApplicationContext().getSharedPreferences("userdetails", MODE_PRIVATE);
 				Editor edit = userDetails.edit();
 				edit.clear();
 				edit.putString("username", txtUserName.getText().toString());

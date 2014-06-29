@@ -10,5 +10,20 @@
     <string name="title_activity_stock_trading">StockTrading</string>
     <string name="title_activity_stock_recording">StockRecording</string>
     <string name="title_activity_pie_chart">PieChart</string>
+    <string name="stock_code">Stock Code</string>
+    <string name="stock_code_hint">e.g.: 0001</string>
+    <string name="stock_name">Stock Name:</string>
+    <string name="last_position">Last Position:</string>
+    <string name="high_low">High / Low:</string>
+    <string name="board_lot_size">Board Lot Size:</string>
+    <string name="none">(none)</string>
+    <string name="buying_lot">Buying Lot:</string>
+    <string name="buying_lot_hint">e.g.: 10</string>
+    <string name="required_fee_to_buy">Required fee to buy:</string>
+    <string name="back">Back</string>
+    <string name="buy">Buy</string>
+    <string name="stock_trading">Stock Trading</string>
+    <string name="stock_trading_description">Please select the operatin you would like the system to perform.</string>
+    <string name="sell">Sell</string>
 
 </resources>
