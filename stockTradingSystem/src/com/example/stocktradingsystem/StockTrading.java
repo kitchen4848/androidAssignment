@@ -17,20 +17,16 @@ public class StockTrading extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// set title of c activity
-		getActionBar().setTitle("Stock Trading");
+		setContentView(R.layout.activity_stock_trading);
 		
 		// set views
 		btnTradingBuy = (Button)findViewById(R.id.btnTradingBuy);
-		btnTradingBuy.getBackground().setColorFilter(new LightingColorFilter(0xff6666ff, 0xff9999ff));
+		btnTradingBuy.getBackground().setColorFilter(new LightingColorFilter(0xff0000ff, 0xff0000ff));
 		btnTradingBuy.setOnClickListener(this);
 		
 		btnTradingSell = (Button)findViewById(R.id.btnTradingSell);
-		btnTradingSell.getBackground().setColorFilter(new LightingColorFilter(0x66ff66ff, 0x99ff99ff));
+		btnTradingSell.getBackground().setColorFilter(new LightingColorFilter(0x00ff00ff, 0x00ff00ff));
 		btnTradingSell.setOnClickListener(this);
-		
-		setContentView(R.layout.activity_stock_trading);
 	}
 
 	@Override

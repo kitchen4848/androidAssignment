@@ -50,9 +50,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				SharedPreferences.Editor edit = settings.edit();
 				//edit.clear();
 				edit.putString("username", txtUserName.getText().toString());
-				android.util.Log.d("sts-userDetails<-sp", txtUserName.getText().toString());
 				edit.putString("password", txtPassword.getText().toString());
-				android.util.Log.d("sts-userDetails<-sp", txtPassword.getText().toString());
 				edit.commit();
 				
 				this.finish();

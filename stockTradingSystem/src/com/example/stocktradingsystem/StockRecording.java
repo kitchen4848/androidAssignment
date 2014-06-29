@@ -18,23 +18,19 @@ import android.widget.Toast;
 
 public class StockRecording extends Activity {
 
-	private ListView lsvMain;
+	private ListView lsvTradingRecordMain;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// set title of c activity
-		getActionBar().setTitle("Stock Trading Record");
+		setContentView(R.layout.activity_stock_recording);
 
 		// add back button?
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// set views
-		lsvMain = new ListView(this);
-		lsvMain.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
-
-		setContentView(R.layout.activity_stock_recording);
+		lsvTradingRecordMain = (ListView)findViewById(R.id.lsvTradingRecordMain);
+		lsvTradingRecordMain.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, getData()));
 	}
 
 	private List<String> getData() {
@@ -42,15 +38,16 @@ public class StockRecording extends Activity {
 		TradingRecordCollection trc = new TradingRecordCollection();
 		
 		try {
-			SQLiteDatabase db = StockSystemDatabaseCommunicator.getOpeningDatabaseObject(this);
-			trc = StockSystemDatabaseCommunicator.getAllTradingRecords(db);
+			SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
+			if (DatabaseCommunicate.isTradingRecordExist(db))
+				trc = DatabaseCommunicate.getAllTradingRecords(db);
 			db.close();
 		} catch (SQLiteException e) {
 			e.printStackTrace();
 			Toast.makeText(this, "Error fetching trading records.", Toast.LENGTH_LONG).show();
 			return ret;
 		}
-
+		
 		for (TradingRecord r : trc) {
 			String str = "";
 			str += r.getMomentOfTrading() + " ";
@@ -60,6 +57,7 @@ public class StockRecording extends Activity {
 			
 			ret.add(str);
 		}
+		
 		return ret;
 	}
 

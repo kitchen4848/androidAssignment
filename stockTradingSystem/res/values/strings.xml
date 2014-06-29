@@ -4,11 +4,13 @@
     <string name="app_name">stockTradingSystem</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_stock_meun">StockMeun</string>
+    <string name="title_activity_stock_meun">Stock Meun</string>
     <string name="title_activity_portfolio">Portfolio</string>
-    <string name="title_activity_real_time_stock">RealTimeStock</string>
-    <string name="title_activity_stock_trading">StockTrading</string>
-    <string name="title_activity_stock_recording">StockRecording</string>
+    <string name="title_activity_real_time_stock">Real Time Stock</string>
+    <string name="title_activity_stock_trading">Stock Trading</string>
+    <string name="title_activity_stock_trading_buy">Buy Stock</string>
+    <string name="title_activity_stock_trading_sell">Sell Stock</string>
+    <string name="title_activity_stock_recording">Trading Records</string>
     <string name="title_activity_pie_chart">PieChart</string>
     <string name="stock_code">Stock Code</string>
     <string name="stock_code_hint">e.g.: 0001</string>
@@ -25,5 +27,6 @@
     <string name="stock_trading">Stock Trading</string>
     <string name="stock_trading_description">Please select the operatin you would like the system to perform.</string>
     <string name="sell">Sell</string>
+    <string name="count_of_trading_records">Count of trading records:</string>
 
 </resources>

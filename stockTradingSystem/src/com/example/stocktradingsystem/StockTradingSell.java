@@ -9,13 +9,9 @@ public class StockTradingSell extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// set title of c activity
-		// TODO: set title of activity stock trading
+		setContentView(R.layout.activity_stock_trading_sell);
 		
 		// set views
 		
-		
-		setContentView(R.layout.activity_stock_trading_sell);
 	}
 }

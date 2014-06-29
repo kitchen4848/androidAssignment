@@ -33,10 +33,10 @@ public class RealTimeStock extends Activity {
 			String ret = "(error fetching data)";
 
 			if (result != null) {
-				ret = "Mode: " + result.getMode() + "\n";
+				ret = "Mode: " + result.get_mode() + "\n";
 				ret += "Symbol: " + result.getSymbol() + "\n";
 				ret += "Name: " + result.getChinese() + "(" + result.getEnglish() + ")" + "\n";
-				ret += "sspn: " + result.getSspn() + "\n";
+				ret += "sspn: " + result.isSspn() + "\n";
 				ret += "Price: " + result.getPrice() + "\n";
 				ret += "pct_change: " + result.getPct_change() + "\n";
 				ret += "Pexit: " + result.getPexit() + "\n";
@@ -73,19 +73,3 @@ public class RealTimeStock extends Activity {
 		}
 	}
 }
-
-/*
- * 
- * 
- * 
- * JSONObject quote = jObject.getJSONObject("quote"); String mode =
- * quote.getString("@mode");
- * 
- * 
- * 
- * 
- * dataStr +=(chinese);
- * 
- * 
- * }
- */

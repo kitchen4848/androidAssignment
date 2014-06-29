@@ -1,47 +1,47 @@
 package com.example.stocktradingsystem.controller;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class StockInfo {
-	private String mode;
+	private String _mode;
 	private String symbol;
 	private String chinese;
 	private String english;
-	private String sspn;
-	private String price;
-	private String change;
-	private String pct_change;
-	private String pexit;
-	private String open;
-	private String high;
-	private String low;
+	private boolean sspn;
+	private double price;
+	private double change;
+	private double pct_change;
+	private double pexit;
+	private double open;
+	private double high;
+	private double low;
 	private String bid;
 	private String ask;
-	private String year_high;
-	private String year_low;
-	private String volume;
-	private String turnover;
-	private String pe;
+	private double year_high;
+	private double year_low;
+	private long volume;
+	private long turnover;
+	private double pe;
 	private String market_capital;
-	private String month_high;
-	private String month_low;
-	private String lot;
-	private String dps;
-	private String eps;
-	private String rd10;
-	private String rd14;
-	private String rd20;
-	private String md10;
-	private String md20;
-	private String md50;
-	private String date;
-	
-	public StockInfo() {
-	}
-	
-	public String getMode() {
-		return mode;
+	private double month_high;
+	private double month_low;
+	private int lot;
+	private double dps;
+	private double eps;
+	private double rd10;
+	private double rd14;
+	private double rd20;
+	private double md10;
+	private double md20;
+	private double md50;
+	private Date date;
+
+	public String get_mode() {
+		return _mode;
 	}
 
 	public String getSymbol() {
@@ -56,35 +56,35 @@ public class StockInfo {
 		return english;
 	}
 
-	public String getSspn() {
+	public boolean isSspn() {
 		return sspn;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public String getChange() {
+	public double getChange() {
 		return change;
 	}
 
-	public String getPct_change() {
+	public double getPct_change() {
 		return pct_change;
 	}
 
-	public String getPexit() {
+	public double getPexit() {
 		return pexit;
 	}
 
-	public String getOpen() {
+	public double getOpen() {
 		return open;
 	}
 
-	public String getHigh() {
+	public double getHigh() {
 		return high;
 	}
 
-	public String getLow() {
+	public double getLow() {
 		return low;
 	}
 
@@ -96,23 +96,23 @@ public class StockInfo {
 		return ask;
 	}
 
-	public String getYear_high() {
+	public double getYear_high() {
 		return year_high;
 	}
 
-	public String getYear_low() {
+	public double getYear_low() {
 		return year_low;
 	}
 
-	public String getVolume() {
+	public long getVolume() {
 		return volume;
 	}
 
-	public String getTurnover() {
+	public long getTurnover() {
 		return turnover;
 	}
 
-	public String getPe() {
+	public double getPe() {
 		return pe;
 	}
 
@@ -120,95 +120,107 @@ public class StockInfo {
 		return market_capital;
 	}
 
-	public String getMonth_high() {
+	public double getMonth_high() {
 		return month_high;
 	}
 
-	public String getMonth_low() {
+	public double getMonth_low() {
 		return month_low;
 	}
 
-	public String getLot() {
+	public int getLot() {
 		return lot;
 	}
 
-	public String getDps() {
+	public double getDps() {
 		return dps;
 	}
 
-	public String getEps() {
+	public double getEps() {
 		return eps;
 	}
 
-	public String getRd10() {
+	public double getRd10() {
 		return rd10;
 	}
 
-	public String getRd14() {
+	public double getRd14() {
 		return rd14;
 	}
 
-	public String getRd20() {
+	public double getRd20() {
 		return rd20;
 	}
 
-	public String getMd10() {
+	public double getMd10() {
 		return md10;
 	}
 
-	public String getMd20() {
+	public double getMd20() {
 		return md20;
 	}
 
-	public String getMd50() {
+	public double getMd50() {
 		return md50;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 	public static StockInfo ParseStockInfoFromJson(JSONObject jsonObject) throws JSONException {
 		StockInfo ret = new StockInfo();
-		
+
 		JSONObject quote = jsonObject.getJSONObject("quote");
-		ret.mode = quote.getString("@mode");
+		ret._mode = quote.getString("@mode");
 		JSONObject stock = quote.getJSONObject("stock");
 		ret.symbol = stock.getString("symbol");
 		JSONObject name = stock.getJSONObject("name");
 		ret.chinese = name.getString("chinese");
 		ret.english = name.getString("english");
-		ret.sspn = stock.getString("sspn");
-		ret.price = stock.getString("price");
-		ret.change = stock.getString("change");
-		ret.pct_change = stock.getString("pct_change");
-		ret.pexit = stock.getString("pexit");
-		ret.open = stock.getString("open");
-		ret.high = stock.getString("high");
-		ret.low = stock.getString("low");
+
+		if (ret.english == "null")
+			return null;
+
+		ret.sspn = stock.getString("sspn") == "Y" ? true : false;
+		ret.price = Double.parseDouble(stock.getString("price"));
+		ret.change = Double.parseDouble(stock.getString("change"));
+		String pct_chg_str = stock.getString("pct_change");
+		ret.pct_change = Double.parseDouble(pct_chg_str.substring(0, pct_chg_str.length() - 1));
+		ret.pexit = Double.parseDouble(stock.getString("pexit"));
+		ret.open = Double.parseDouble(stock.getString("open"));
+		ret.high = Double.parseDouble(stock.getString("high"));
+		ret.low = Double.parseDouble(stock.getString("low"));
 		ret.bid = stock.getString("bid");
 		ret.ask = stock.getString("ask");
-		ret.year_high = stock.getString("year_high");
-		ret.year_low = stock.getString("year_low");
-		ret.volume = stock.getString("volume");
-		ret.turnover = stock.getString("turnover");
-		ret.pe = stock.getString("pe");
+		ret.year_high = Double.parseDouble(stock.getString("year_high"));
+		ret.year_low = Double.parseDouble(stock.getString("year_low"));
+		ret.volume = Long.parseLong(stock.getString("volume"));
+		ret.turnover = Long.parseLong(stock.getString("turnover"));
+		ret.pe = Double.parseDouble(stock.getString("pe"));
 		ret.market_capital = stock.getString("market_capital");
-		ret.month_high = stock.getString("month_high");
-		ret.month_low = stock.getString("month_low");
-		ret.lot = stock.getString("lot");
-		ret.dps = stock.getString("dps");
-		ret.eps = stock.getString("eps");
+		ret.month_high = Double.parseDouble(stock.getString("month_high"));
+		ret.month_low = Double.parseDouble(stock.getString("month_low"));
+		ret.lot = (int) Double.parseDouble(stock.getString("lot"));
+		ret.dps = Double.parseDouble(stock.getString("dps"));
+		ret.eps = Double.parseDouble(stock.getString("eps"));
 		JSONObject rsi = stock.getJSONObject("rsi");
-		ret.rd10 = rsi.getString("d10");
-		ret.rd14 = rsi.getString("d14");
-		ret.rd20 = rsi.getString("d20");
+		ret.rd10 = Double.parseDouble(rsi.getString("d10"));
+		ret.rd14 = Double.parseDouble(rsi.getString("d14"));
+		ret.rd20 = Double.parseDouble(rsi.getString("d20"));
 		JSONObject ma = stock.getJSONObject("ma");
-		ret.md10 = ma.getString("d10");
-		ret.md20 = ma.getString("d20");
-		ret.md50 = ma.getString("d50");
-		ret.date = stock.getString("date");
-		
+		ret.md10 = Double.parseDouble(ma.getString("d10"));
+		ret.md20 = Double.parseDouble(ma.getString("d20"));
+		ret.md50 = Double.parseDouble(ma.getString("d50"));
+		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd hh:mm", java.util.Locale.US);
+		formatter.setTimeZone(java.util.TimeZone.getTimeZone("GMT+0800"));
+		try {
+			ret.date = formatter.parse(stock.getString("date"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			ret.date = new Date();
+		}
+
 		return ret;
 	}
 }
