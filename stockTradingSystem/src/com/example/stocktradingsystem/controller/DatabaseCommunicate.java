@@ -12,29 +12,23 @@ public class DatabaseCommunicate {
 		return context.openOrCreateDatabase("stockSystemDB", SQLiteDatabase.CREATE_IF_NECESSARY, null);
 	}
 
-	public static boolean isTableExist(SQLiteDatabase database, String tableName) {
+	private static boolean isTableExist(SQLiteDatabase database, String tableName) {
 		Cursor cursor = database.rawQuery("SELECT 1 FROM sqlite_master WHERE type = ? AND name = ?", new String[] { "table", "TradingRecord" });
 		return cursor.moveToFirst();
 	}
-	
+
 	public static boolean isTradingRecordExist(SQLiteDatabase database) {
 		return isTableExist(database, "TradingRecord");
 	}
-	
+
 	public static void createTradingRecordStore(SQLiteDatabase database) {
-		database.execSQL("CREATE TABLE `TradingRecord` (`momentOfTrading` INTEGER NOT NULL, `stockCode` INTEGER NOT NULL, " + 
-		                 "`stockNameAtTheMoment` TEXT NOT NULL, " + 
-		                 "`tradeAtPrice` REAL NOT NULL, " + 
-		                 "`tradingLotAmount` INTEGER NOT NULL, " + 
-		                 "`isBuying` INTEGER NOT NULL, " + 
-		                 "PRIMARY KEY(momentOfTrading,stockCode)" + 
-		                 ");");
+		database.execSQL("CREATE TABLE `TradingRecord` (`momentOfTrading` INTEGER NOT NULL, `stockCode` INTEGER NOT NULL, `stockNameAtTheMoment` TEXT NOT NULL, `tradeAtPrice` REAL NOT NULL, `tradingLotAmount` INTEGER NOT NULL, `isBuying` INTEGER NOT NULL, PRIMARY KEY(momentOfTrading,stockCode));");
 	}
-	
+
 	public static void addNewTradingRecord(SQLiteDatabase database, TradingRecord tradingRecord) {
 		if (!isTradingRecordExist(database))
 			createTradingRecordStore(database);
-		
+
 		ContentValues values = new ContentValues();
 		values.put("momentOfTrading", tradingRecord.getMomentOfTrading().getTime());
 		values.put("stockCode", tradingRecord.getStockCode());
@@ -42,14 +36,17 @@ public class DatabaseCommunicate {
 		values.put("tradeAtPrice", tradingRecord.getTradeAtPrice());
 		values.put("tradingLotAmount", tradingRecord.getTradingLotAmount());
 		values.put("isBuying", tradingRecord.isBuying());
-		
+
 		database.insert("TradingRecord", null, values);
 	}
-	
+
 	public static TradingRecordCollection getAllTradingRecords(SQLiteDatabase database) {
 		TradingRecordCollection ret = new TradingRecordCollection();
-		
-		Cursor cursor = database.rawQuery("SELECT momentOfTrading, stockCode, stockNameAtTheMoment, tradeAtPrice, tradingLotAmount, isBuying FROM TradingRecord", null);
+
+		if (!isTradingRecordExist(database))
+			return ret;
+
+		Cursor cursor = database.rawQuery("SELECT `momentOfTrading`, `stockCode`, `stockNameAtTheMoment`, `tradeAtPrice`, `tradingLotAmount`, `isBuying` FROM TradingRecord", null);
 		while (cursor.moveToNext()) {
 			Date momentOfTrading = new Date(cursor.getLong(cursor.getColumnIndex("momentOfTrading")) * 1000);
 			int stockCode = cursor.getInt(cursor.getColumnIndex("stockCode"));
@@ -57,11 +54,73 @@ public class DatabaseCommunicate {
 			double tradeAtPrice = cursor.getDouble(cursor.getColumnIndex("tradeAtPrice"));
 			int tradingLotAmount = cursor.getInt(cursor.getColumnIndex("tradingLotAmount"));
 			boolean isBuying = cursor.getInt(cursor.getColumnIndex("isBuying")) > 0;
-			
+
 			TradingRecord newTradingRecord = new TradingRecord(momentOfTrading, stockCode, stockNameAtTheMoment, tradeAtPrice, tradingLotAmount, isBuying);
 			ret.add(newTradingRecord);
 		}
+
+		return ret;
+	}
+
+	public static boolean isPortfolioExist(SQLiteDatabase database) {
+		return isTableExist(database, "Portfolio");
+	}
+
+	public static void createPortfolio(SQLiteDatabase database) {
+		database.execSQL("CREATE TABLE `Portfolio` (`momentOfTrading` INTEGER NOT NULL, `stockCode` INTEGER NOT NULL, `stockNameAtTheMoment` TEXT NOT NULL, `tradeAtPrice` REAL NOT NULL, `tradingLotAmount` INTEGER NOT NULL, `isBuying` INTEGER NOT NULL, PRIMARY KEY(momentOfTrading,stockCode));");
+	}
+
+	private static void addNewPortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem) {
+		ContentValues values = new ContentValues();
+		values.put("stockCode", portfolioItem.getStockCode());
+		values.put("stockName", portfolioItem.getStockName());
+		values.put("lotSize", portfolioItem.getLotSize());
+		values.put("quantityOnHand", portfolioItem.getQuantityOnHand());
+
+		database.insert("Portfolio", null, values);
+	}
+
+	private static void updatePortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem, boolean isBuying) {
+		String[] argv = new String[] { portfolioItem.getStockName(), portfolioItem.getLotSize() + "", portfolioItem.getQuantityOnHand() + "", portfolioItem.getStockCode() + "" };
+
+		database.rawQuery("UPDATE Portfolio SET `stockName` = ? , `lotSize` = ? , `quantityOnHand` = `quantityOnHand` " + (isBuying ? "+" : "-") + " ? WHERE `stockCode` = ?", argv);
+	}
+
+	public static void addOrUpdatePortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem, boolean isBuying) {
+		if (!isPortfolioExist(database))
+			createPortfolio(database);
 		
+		if (isPortfolioItemExist(database, portfolioItem.getStockCode()))
+			updatePortfolioItem(database, portfolioItem, isBuying);
+		else
+			addNewPortfolioItem(database, portfolioItem);
+	}
+
+	private static boolean isPortfolioItemExist(SQLiteDatabase database, int stockCode) {
+		if (!isPortfolioExist(database))
+			return false;
+
+		Cursor cursor = database.rawQuery("SELECT 1 FROM Portfolio WHERE stockCode = ?", new String[] { stockCode + "" });
+		return cursor.moveToFirst();
+	}
+
+	public static PortfolioItemCollection getAllPortfolioItems(SQLiteDatabase database) {
+		PortfolioItemCollection ret = new PortfolioItemCollection();
+
+		if (!isPortfolioExist(database))
+			return ret;
+
+		Cursor cursor = database.rawQuery("SELECT `stockCode`, `stockName`, `lotSize`, `quantityOnHand` FROM Portfolio", null);
+		while (cursor.moveToNext()) {
+			int stockCode = cursor.getInt(cursor.getColumnIndex("stockCode"));
+			String stockName = cursor.getString(cursor.getColumnIndex("stockName"));
+			int lotSize = cursor.getInt(cursor.getColumnIndex("lotSize"));
+			int quantityOnHand = cursor.getInt(cursor.getColumnIndex("quantityOnHand"));
+
+			PortfolioItem newPortfolioItem = new PortfolioItem(stockCode, stockName, lotSize, quantityOnHand);
+			ret.add(newPortfolioItem);
+		}
+
 		return ret;
 	}
 }

@@ -1,7 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:id="@+id/txtSellStockStockCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/stock_code"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <AutoCompleteTextView
+        android:id="@+id/atxSellStockStockCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtSellStockStockCode"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtSellStockStockCode"
+        android:ems="10"
+        android:hint="@string/stock_stock_code_auto_hint" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <TextView
+        android:id="@+id/txtSellStockStockName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/atxSellStockStockCode"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/stock_name" />
+
+    <TextView
+        android:id="@+id/txtSellStockSelectedStockName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtSellStockStockName"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/none" />
+
+    <TextView
+        android:id="@+id/txtSellStockLastPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtSellStockStockName"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/last_position" />
+
+    <TextView
+        android:id="@+id/txtSellStockSelectedStockLastPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtSellStockLastPos"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/none" />
+
+    <TextView
+        android:id="@+id/txtSellStockHighLow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtSellStockLastPos"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/high_low" />
+
+    <TextView
+        android:id="@+id/txtSellStockSelectedStockHighLow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtSellStockHighLow"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/none" />
+
+    <TextView
+        android:id="@+id/txtSellingPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtSellStockHighLow"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/selling_price"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtSellingPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtSellingPrice"
+        android:ems="10"
+        android:hint="@string/price_hint"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/txtMoneyAfterSold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edtSellingLot"
+        android:layout_below="@+id/edtSellingLot"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/money_after_sold" />
+
+    <TextView
+        android:id="@+id/txtMoneyAfterSoldValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtMoneyAfterSold"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/none" />
+
+    <TextView
+        android:id="@+id/txtSellingLot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edtSellingLot"
+        android:layout_below="@+id/edtSellingPrice"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/selling_lot"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtSellingLot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/edtSellingPrice"
+        android:layout_below="@+id/txtSellingLot"
+        android:ems="10"
+        android:hint="@string/lot_hint"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnSellCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/sell" />
+
+    <Button
+        android:id="@+id/btnSellBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/cancel" />
 
 </RelativeLayout>

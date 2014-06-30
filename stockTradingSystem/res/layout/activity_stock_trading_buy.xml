@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView
-        android:id="@+id/txtStockCode"
+        android:id="@+id/txtBuyStockStockCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,11 +16,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/edtStockCode"
+        android:id="@+id/edtBuyStockStockCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtStockCode"
+        android:layout_below="@+id/txtBuyStockStockCode"
         android:ems="10"
         android:hint="@string/stock_code_hint"
         android:inputType="number" >
@@ -29,83 +29,102 @@
     </EditText>
 
     <TextView
-        android:id="@+id/txtStockName"
+        android:id="@+id/txtBuyStockStockName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/edtStockCode"
+        android:layout_below="@+id/edtBuyStockStockCode"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/stock_name" />
 
     <TextView
-        android:id="@+id/txtSelectedStockName"
+        android:id="@+id/txtBuyStockSelectedStockName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtStockName"
+        android:layout_alignBaseline="@+id/txtBuyStockStockName"
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:text="@string/none" />
 
     <TextView
-        android:id="@+id/txtLastPos"
+        android:id="@+id/txtBuyStockLastPos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtStockName"
+        android:layout_below="@+id/txtBuyStockStockName"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/last_position" />
 
     <TextView
-        android:id="@+id/txtSelectedStockLastPos"
+        android:id="@+id/txtBuyStockSelectedStockLastPos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtLastPos"
+        android:layout_alignBaseline="@+id/txtBuyStockLastPos"
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:text="@string/none" />
 
     <TextView
-        android:id="@+id/txtHighLow"
+        android:id="@+id/txtBuyStockHighLow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtLastPos"
+        android:layout_below="@+id/txtBuyStockLastPos"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/high_low" />
 
     <TextView
-        android:id="@+id/txtSelectedStockHighLow"
+        android:id="@+id/txtBuyStockSelectedStockHighLow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtHighLow"
+        android:layout_alignBaseline="@+id/txtBuyStockHighLow"
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:text="@string/none" />
 
     <TextView
-        android:id="@+id/txBoardLotSize"
+        android:id="@+id/txtBuyStockBoardLotSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtHighLow"
+        android:layout_below="@+id/txtBuyStockHighLow"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/board_lot_size" />
 
     <TextView
-        android:id="@+id/txtSelectedStockBoardLotSize"
+        android:id="@+id/txtBuyStockSelectedStockBoardLotSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txBoardLotSize"
+        android:layout_alignBaseline="@+id/txtBuyStockBoardLotSize"
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:text="@string/none" />
+
+    <TextView
+        android:id="@+id/txtBuyingPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtBuyStockBoardLotSize"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/buying_price"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtBuyingPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtBuyingPrice"
+        android:ems="10"
+        android:hint="@string/price_hint"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/txtBuyingLot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txBoardLotSize"
+        android:layout_below="@+id/edtBuyingPrice"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/buying_lot"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -117,7 +136,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/txtBuyingLot"
         android:ems="10"
-        android:hint="@string/buying_lot_hint"
+        android:hint="@string/lot_hint"
         android:inputType="number" />
 
     <TextView
@@ -152,6 +171,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/back" />
+        android:text="@string/cancel" />
 
 </RelativeLayout>

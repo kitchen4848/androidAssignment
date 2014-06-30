@@ -5,32 +5,30 @@
     tools:context=".StockRecording" >
 
     <TextView
-        android:id="@+id/txtCountOfTradingRecords"
+        android:id="@+id/txtTradingRecordsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:text="@string/count_of_trading_records" />
-
-    <TextView
-        android:id="@+id/txtValueCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtCountOfTradingRecords"
-        android:layout_alignBottom="@+id/txtCountOfTradingRecords"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:gravity="right"
-        android:text="@string/none" />
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/count" />
 
     <ListView
         android:id="@+id/lsvTradingRecordMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/txtCountOfTradingRecords"
+        android:layout_below="@+id/txtTradingRecordsCount"
         android:layout_marginTop="@dimen/activity_vertical_margin" >
 
     </ListView>
+
+    <TextView
+        android:id="@+id/txtValueCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lsvTradingRecordMain"
+        android:layout_toRightOf="@+id/txtTradingRecordsCount"
+        android:gravity="right"
+        android:text="@string/none" />
 
 </RelativeLayout>

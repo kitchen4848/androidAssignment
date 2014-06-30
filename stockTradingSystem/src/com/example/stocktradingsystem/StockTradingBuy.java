@@ -21,18 +21,20 @@ import android.widget.Toast;
 
 public class StockTradingBuy extends Activity implements OnClickListener, OnFocusChangeListener, android.content.DialogInterface.OnClickListener {
 
-	EditText edtStockCode;
-	TextView txtSelectedStockName;
-	TextView txtSelectedStockLastPos;
-	TextView txtSelectedStockHighLow;
-	TextView txtSelectedStockBoardLotSize;
-	EditText edtBuyingLot;
-	TextView txtRequiredFeeToBuyValue;
-	Button btnBuyBack;
-	Button btnBuyCheckout;
-	AlertDialog dlgBuyConfirm;
+	private EditText edtBuyStockStockCode;
+	private TextView txtBuyStockSelectedStockName;
+	private TextView txtBuyStockSelectedStockLastPos;
+	private TextView txtBuyStockSelectedStockHighLow;
+	private TextView txtBuyStockSelectedStockBoardLotSize;
+	private EditText edtBuyingPrice;
+	private EditText edtBuyingLot;
+	private TextView txtRequiredFeeToBuyValue;
+	private Button btnBuyBack;
+	private Button btnBuyCheckout;
+	private AlertDialog dlgBuyConfirm;
+	private AlertDialog dlgBuyingSuccess;
 
-	StockInfo selectingStock = null;
+	private StockInfo selectingStock = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +42,29 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		setContentView(R.layout.activity_stock_trading_buy);
 
 		// set views
-		edtStockCode = (EditText) findViewById(R.id.edtStockCode);
-		edtStockCode.setOnFocusChangeListener(this);
-		txtSelectedStockName = (TextView) findViewById(R.id.txtSelectedStockName);
-		txtSelectedStockLastPos = (TextView) findViewById(R.id.txtSelectedStockLastPos);
-		txtSelectedStockHighLow = (TextView) findViewById(R.id.txtSelectedStockHighLow);
-		txtSelectedStockBoardLotSize = (TextView) findViewById(R.id.txtSelectedStockBoardLotSize);
+		edtBuyStockStockCode = (EditText) findViewById(R.id.edtBuyStockStockCode);
+		edtBuyStockStockCode.setOnFocusChangeListener(this);
+		txtBuyStockSelectedStockName = (TextView) findViewById(R.id.txtBuyStockSelectedStockName);
+		txtBuyStockSelectedStockLastPos = (TextView) findViewById(R.id.txtBuyStockSelectedStockLastPos);
+		txtBuyStockSelectedStockHighLow = (TextView) findViewById(R.id.txtBuyStockSelectedStockHighLow);
+		txtBuyStockSelectedStockBoardLotSize = (TextView) findViewById(R.id.txtBuyStockSelectedStockBoardLotSize);
+		edtBuyingPrice = (EditText) findViewById(R.id.edtBuyingPrice);
+		edtBuyingPrice.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (selectingStock != null)
+					ShowPayResultFromPriceAndLotSize();
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
 		edtBuyingLot = (EditText) findViewById(R.id.edtBuyingLot);
 		edtBuyingLot.addTextChangedListener(new TextWatcher() {
 
@@ -72,7 +91,7 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		if (v.getId() == R.id.edtStockCode) {
+		if (v.getId() == R.id.edtBuyStockStockCode) {
 			StockInfoFetcher sif = new StockInfoFetcher() {
 				@Override
 				protected void onComplete(StockInfo result) {
@@ -81,7 +100,7 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 					ShowPayResultFromPriceAndLotSize();
 				}
 			};
-			sif.FindFromId(edtStockCode.getText().toString());
+			sif.FindFromId(edtBuyStockStockCode.getText().toString());
 		}
 	}
 
@@ -101,7 +120,7 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 			dlgBuyConfirm.setCancelable(false); // This blocks the 'BACK' button
 			String msg = "Are you sure to buy:\n";
 			msg += "Stock: " + selectingStock.getSymbol() + ".HK (" + selectingStock.getEnglish() + ")\n";
-			msg += "Price: %" + String.format("%.3f", selectingStock.getPrice()) + "\n";
+			msg += "Price: $" + this.edtBuyingPrice.getText().toString() + "\n";
 			msg += "Buying Lot Amount: " + this.edtBuyingLot.getText().toString() + "\n";
 			msg += "Paying fee: $" + String.format("%.1f", selectingStock.getPrice() * selectingStock.getLot() * Integer.parseInt(this.edtBuyingLot.getText().toString())) + "\n";
 			msg += "\nConfirm?";
@@ -117,25 +136,25 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		if (selectingStock == null) {
 			String errText = "(error)";
 
-			txtSelectedStockName.setText(errText);
-			txtSelectedStockLastPos.setText(errText);
-			txtSelectedStockHighLow.setText(errText);
-			txtSelectedStockBoardLotSize.setText(errText);
+			txtBuyStockSelectedStockName.setText(errText);
+			txtBuyStockSelectedStockLastPos.setText(errText);
+			txtBuyStockSelectedStockHighLow.setText(errText);
+			txtBuyStockSelectedStockBoardLotSize.setText(errText);
 			txtRequiredFeeToBuyValue.setText(errText);
 		} else {
-			txtSelectedStockName.setText(selectingStock.getEnglish());
-			txtSelectedStockLastPos.setText(String.format("%.3f", selectingStock.getPrice()));
-			txtSelectedStockHighLow.setText(String.format("%.3f / %.3f", selectingStock.getHigh(), selectingStock.getHigh()));
-			txtSelectedStockBoardLotSize.setText(String.format("%d", selectingStock.getLot()));
+			txtBuyStockSelectedStockName.setText(selectingStock.getEnglish());
+			txtBuyStockSelectedStockLastPos.setText(String.format("%.3f", selectingStock.getPrice()));
+			txtBuyStockSelectedStockHighLow.setText(String.format("%.3f / %.3f", selectingStock.getHigh(), selectingStock.getHigh()));
+			txtBuyStockSelectedStockBoardLotSize.setText(String.format("%d", selectingStock.getLot()));
 		}
 	}
 
 	private void ShowPayResultFromPriceAndLotSize() {
-		if (edtBuyingLot.getText().toString().length() == 0) {
+		if (edtBuyingPrice.getText().toString().length() == 0 || edtBuyingLot.getText().toString().length() == 0) {
 			txtRequiredFeeToBuyValue.setText("(none)");
 		} else if (selectingStock != null) {
+			double price = Double.parseDouble(this.edtBuyingPrice.getText().toString());
 			int buyingLot = Integer.parseInt(edtBuyingLot.getText().toString()); 
-			double price = selectingStock.getPrice();
 			double lotSize = selectingStock.getLot();
 
 			txtRequiredFeeToBuyValue.setText("$" + String.format("%.3f", buyingLot * price * lotSize));
@@ -151,17 +170,29 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 				Date momentOfTrading = new Date();
 				int stockCode = Integer.parseInt(selectingStock.getSymbol());
 				String stockNameAtTheMoment = selectingStock.getEnglish();
-				double tradeAtPrice = selectingStock.getPrice();
+				double tradeAtPrice = Double.parseDouble(this.edtBuyingPrice.getText().toString());
+				int lotSize = selectingStock.getLot();
 				int tradingLotAmount = Integer.parseInt(this.edtBuyingLot.getText().toString());
 				boolean isBuying = true;
 				TradingRecord tr = new TradingRecord(momentOfTrading, stockCode, stockNameAtTheMoment, tradeAtPrice, tradingLotAmount, isBuying);
-
+				PortfolioItem pi = new PortfolioItem(stockCode, stockNameAtTheMoment, lotSize, tradingLotAmount);
+				
 				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(getBaseContext());
 				DatabaseCommunicate.addNewTradingRecord(db, tr);
+				DatabaseCommunicate.addOrUpdatePortfolioItem(db, pi, true);
 
 				dialog.dismiss();
 				
+				// showing dialog telling bought ok
+			    dlgBuyingSuccess = new AlertDialog.Builder(this).create();  
+			    dlgBuyingSuccess.setCancelable(false); // This blocks the 'BACK' button  
+			    dlgBuyingSuccess.setMessage("Buying stock success.");  
+			    dlgBuyingSuccess.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", this);  
+			    dlgBuyingSuccess.show();  
 			}
+		} else if (dialog == dlgBuyingSuccess) {
+			this.finish();
+			dialog.dismiss();
 		}
 	}
 }
