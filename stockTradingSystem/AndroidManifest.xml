@@ -6,8 +6,8 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="18" />
-    
+        android:targetSdkVersion="14" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,38 +30,31 @@
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.Portfolio"
-            android:label="@string/title_activity_portfolio"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_portfolio" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.RealTimeStock"
-            android:label="@string/title_activity_real_time_stock"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_real_time_stock" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.StockTrading"
-            android:label="@string/title_activity_stock_trading"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_stock_trading" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.StockTradingBuy"
-            android:label="@string/title_activity_stock_trading_buy"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_stock_trading_buy" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.StockTradingSell"
-            android:label="@string/title_activity_stock_trading_sell"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_stock_trading_sell" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.StockRecording"
-            android:label="@string/title_activity_stock_recording"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_stock_recording" >
         </activity>
         <activity
             android:name="com.example.stocktradingsystem.PieChart"
-            android:label="@string/title_activity_pie_chart"
-            android:parentActivityName="com.example.stocktradingsystem.StockMeun" >
+            android:label="@string/title_activity_pie_chart" >
         </activity>
     </application>
 

@@ -16,6 +16,7 @@ import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -39,11 +40,15 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 	private AlertDialog dlgSellingSuccess;
 
 	private StockInfo selectingStock = null;
+	private PortfolioItem selectingPortfolioItem = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stock_trading_sell);
+
+		// add back button?
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// set views
 		atxSellStockStockCode = (AutoCompleteTextView) findViewById(R.id.atxSellStockStockCode);
@@ -102,9 +107,33 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 					selectingStock = result;
 					DisplayStockResultOnUI();
 					ShowGainResultFromPriceAndLotSize();
+					GetPortfolioItemFromSelectingStock();
 				}
 			};
 			sif.FindFromId(atxSellStockStockCode.getText().toString());
+		}
+	}
+	
+	private void GetPortfolioItemFromSelectingStock() {
+//		AsyncTask at = new Async
+		
+		if (selectingStock != null) {
+			try	{
+				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
+				selectingPortfolioItem = DatabaseCommunicate.getportfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
+				db.close();
+				
+				if (selectingPortfolioItem == null) {
+					int _stockCode = Integer.parseInt(selectingStock.getSymbol());
+					String stockName = selectingStock.getEnglish();
+					int lotSize = selectingStock.getLot();
+					int quantityOnHand = 0;
+					selectingPortfolioItem = new PortfolioItem(_stockCode, stockName, lotSize, quantityOnHand);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -116,8 +145,23 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 			break;
 		case R.id.btnSellCheckout:
 			if (selectingStock == null) {
-				Toast.makeText(this, "No current stock info. Rejected.", Toast.LENGTH_SHORT);
-				break;
+				Toast.makeText(this, "No current stock info. Rejected.", Toast.LENGTH_SHORT).show();
+				return;
+			} else if (selectingPortfolioItem == null) {
+				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
+				return;
+			} else if (edtSellingPrice.getText().toString().length() == 0) {
+				Toast.makeText(this, "What is your selling price?", Toast.LENGTH_SHORT).show();
+				return;
+			} else if (edtSellingLot.getText().toString().length() == 0) {
+				Toast.makeText(this, "How may lots do you want to sell?", Toast.LENGTH_SHORT).show();
+				return;
+			} else if (Integer.parseInt(edtSellingLot.getText().toString()) < 1) {
+				Toast.makeText(this, "\"0\" is not a valid number of lot to sell.", Toast.LENGTH_SHORT).show();
+				return;
+			} else if (Integer.parseInt(edtSellingLot.getText().toString()) > selectingPortfolioItem.getQuantityOnHand()) {
+				Toast.makeText(this, "You don't have that many lots to sell.", Toast.LENGTH_SHORT).show();
+				return;
 			}
 
 			dlgSellConfirm = new AlertDialog.Builder(this).create();
@@ -178,13 +222,15 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 				double tradeAtPrice = Double.parseDouble(this.edtSellingPrice.getText().toString());
 				int lotSize = selectingStock.getLot();
 				int tradingLotAmount = Integer.parseInt(this.edtSellingLot.getText().toString());
-				boolean isBuying = true;
+				boolean isBuying = false;
 				TradingRecord tr = new TradingRecord(momentOfTrading, stockCode, stockNameAtTheMoment, tradeAtPrice, tradingLotAmount, isBuying);
-				PortfolioItem pi = new PortfolioItem(stockCode, stockNameAtTheMoment, lotSize, tradingLotAmount);
+				int newLotOnHand = selectingPortfolioItem.getQuantityOnHand() - tradingLotAmount;
+				PortfolioItem pi = new PortfolioItem(stockCode, stockNameAtTheMoment, lotSize, newLotOnHand);
 
 				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(getBaseContext());
 				DatabaseCommunicate.addNewTradingRecord(db, tr);
-				DatabaseCommunicate.addOrUpdatePortfolioItem(db, pi, false);
+				DatabaseCommunicate.addOrUpdatePortfolioItem(db, pi, isBuying);
+				db.close();
 
 				dialog.dismiss();
 
@@ -200,5 +246,17 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 			this.finish();
 			dialog.dismiss();
 		}
+	}
+
+	// https://developer.android.com/training/implementing-navigation/ancestral.html
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

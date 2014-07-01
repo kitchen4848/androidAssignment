@@ -63,6 +63,8 @@ public class StockRecording extends Activity {
 			return ret;
 		}
 		
+		java.util.Collections.reverse(trc);
+		
 		for (TradingRecord r : trc) {
 			HashMap<String, String> item = new HashMap<String, String>();
 			item.put("title", (r.isBuying() ? "Buying" : "Selling") + " " + String.format("%05d", r.getStockCode()) + ".HK (" + r.getStockNameAtTheMoment() + ")");
@@ -85,10 +87,9 @@ public class StockRecording extends Activity {
 		switch (item.getItemId()) {
 		// Respond to the action bar's Up/Home button
 		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }

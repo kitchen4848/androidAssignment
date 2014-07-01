@@ -5,6 +5,7 @@ import com.example.stocktradingsystem.controller.StockInfoFetcher;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RealTimeStock extends Activity {
-	TextView tvdata;
+	TextView txtRealTimeStockStockInfo;
 	Button btnSearch;
 	EditText txtSearch;
 	FetchPageTask task = null;
@@ -21,10 +22,13 @@ public class RealTimeStock extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_real_time_stock);
-		tvdata = (TextView) findViewById(R.id.tvdata);
+
+		// add back button?
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		txtRealTimeStockStockInfo = (TextView) findViewById(R.id.txtRealTimeStockStockInfo);
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 		txtSearch = (EditText) findViewById(R.id.txtSearch);
-
 	}
 
 	private class FetchPageTask extends StockInfoFetcher {
@@ -60,7 +64,7 @@ public class RealTimeStock extends Activity {
 				ret += "ma: " + String.format("d10:%s \n%7s:" + result.getMd10() + " \n%7s:" + result.getMd20() + "", result.getMd50(), "d14", "d20") + "\nDate: " + result.getDate();
 			}
 
-			tvdata.setText(ret);
+			txtRealTimeStockStockInfo.setText(ret);
 		}
 	}
 
@@ -71,5 +75,17 @@ public class RealTimeStock extends Activity {
 		if (!fetchPageTask.FindFromId(symbol)) {
 			Toast.makeText(getApplicationContext(), "Format of symbol is incorrect.", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	// https://developer.android.com/training/implementing-navigation/ancestral.html
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

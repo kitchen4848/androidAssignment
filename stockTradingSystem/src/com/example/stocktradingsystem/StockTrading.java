@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.LightingColorFilter;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,6 +19,9 @@ public class StockTrading extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stock_trading);
+
+		// add back button?
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		// set views
 		btnTradingBuy = (Button)findViewById(R.id.btnTradingBuy);
@@ -41,5 +45,17 @@ public class StockTrading extends Activity implements OnClickListener {
 			startActivity(ittStockTradingSell);
 			break;
 		}
+	}
+
+	// https://developer.android.com/training/implementing-navigation/ancestral.html
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		// Respond to the action bar's Up/Home button
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

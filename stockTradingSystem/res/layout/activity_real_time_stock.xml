@@ -11,7 +11,7 @@
     tools:context=".RealTimeStock" >
 
     <TextView
-        android:id="@+id/tvdata"
+        android:id="@+id/txtRealTimeStockStockInfo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,8 +23,8 @@
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvdata"
-        android:layout_alignRight="@+id/tvdata"
+        android:layout_above="@+id/txtPortfolioData"
+        android:layout_alignRight="@+id/txtPortfolioData"
         android:text="Search" 
         android:onClick="clickedSearch"/>
 

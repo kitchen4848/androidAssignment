@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <TextView
-      android:id="@+id/tvdata"
+      android:id="@+id/txtPortfolioData"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content" 
       android:typeface="monospace"

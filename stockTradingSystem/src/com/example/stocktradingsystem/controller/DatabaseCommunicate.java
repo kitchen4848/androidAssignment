@@ -13,8 +13,12 @@ public class DatabaseCommunicate {
 	}
 
 	private static boolean isTableExist(SQLiteDatabase database, String tableName) {
-		Cursor cursor = database.rawQuery("SELECT 1 FROM sqlite_master WHERE type = ? AND name = ?", new String[] { "table", "TradingRecord" });
-		return cursor.moveToFirst();
+		Cursor cursor = database.rawQuery("SELECT 1 FROM sqlite_master WHERE type = ? AND name = ?", new String[] { "table", tableName });
+		if (cursor.moveToFirst()) {
+			cursor.close();
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean isTradingRecordExist(SQLiteDatabase database) {
@@ -58,6 +62,8 @@ public class DatabaseCommunicate {
 			TradingRecord newTradingRecord = new TradingRecord(momentOfTrading, stockCode, stockNameAtTheMoment, tradeAtPrice, tradingLotAmount, isBuying);
 			ret.add(newTradingRecord);
 		}
+		
+		cursor.close();
 
 		return ret;
 	}
@@ -67,7 +73,7 @@ public class DatabaseCommunicate {
 	}
 
 	public static void createPortfolio(SQLiteDatabase database) {
-		database.execSQL("CREATE TABLE `Portfolio` (`momentOfTrading` INTEGER NOT NULL, `stockCode` INTEGER NOT NULL, `stockNameAtTheMoment` TEXT NOT NULL, `tradeAtPrice` REAL NOT NULL, `tradingLotAmount` INTEGER NOT NULL, `isBuying` INTEGER NOT NULL, PRIMARY KEY(momentOfTrading,stockCode));");
+		database.execSQL("CREATE TABLE `Portfolio` (`stockCode` INTEGER NOT NULL, `stockName` TEXT NOT NULL, `lotSize` INTEGER NOT NULL, `quantityOnHand` INTEGER NOT NULL, PRIMARY KEY(stockCode));");
 	}
 
 	private static void addNewPortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem) {
@@ -81,9 +87,13 @@ public class DatabaseCommunicate {
 	}
 
 	private static void updatePortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem, boolean isBuying) {
-		String[] argv = new String[] { portfolioItem.getStockName(), portfolioItem.getLotSize() + "", portfolioItem.getQuantityOnHand() + "", portfolioItem.getStockCode() + "" };
+		ContentValues values = new ContentValues();
+		values.put("stockCode", portfolioItem.getStockCode());
+		values.put("stockName", portfolioItem.getStockName());
+		values.put("lotSize", portfolioItem.getLotSize());
+		values.put("quantityOnHand", portfolioItem.getQuantityOnHand());
 
-		database.rawQuery("UPDATE Portfolio SET `stockName` = ? , `lotSize` = ? , `quantityOnHand` = `quantityOnHand` " + (isBuying ? "+" : "-") + " ? WHERE `stockCode` = ?", argv);
+		database.update("Portfolio", values, "stockCode=?", new String[] { portfolioItem.getStockCode() + "" });
 	}
 
 	public static void addOrUpdatePortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem, boolean isBuying) {
@@ -101,7 +111,12 @@ public class DatabaseCommunicate {
 			return false;
 
 		Cursor cursor = database.rawQuery("SELECT 1 FROM Portfolio WHERE stockCode = ?", new String[] { stockCode + "" });
-		return cursor.moveToFirst();
+		if(cursor.moveToFirst()) {
+			cursor.close();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public static PortfolioItemCollection getAllPortfolioItems(SQLiteDatabase database) {
@@ -120,7 +135,27 @@ public class DatabaseCommunicate {
 			PortfolioItem newPortfolioItem = new PortfolioItem(stockCode, stockName, lotSize, quantityOnHand);
 			ret.add(newPortfolioItem);
 		}
+		
+		cursor.close();
 
 		return ret;
+	}
+	
+	public static PortfolioItem getportfolioItemByStockCode(SQLiteDatabase database, int stockCode) {
+		if (!isPortfolioExist(database))
+			return null;
+
+		Cursor cursor = database.rawQuery("SELECT `stockCode`, `stockName`, `lotSize`, `quantityOnHand` FROM Portfolio WHERE stockCode = ?", new String[] { String.format("%d", stockCode) });
+		if (!cursor.moveToNext())
+			return null;
+		
+		int _stockCode = cursor.getInt(cursor.getColumnIndex("stockCode"));
+		String stockName = cursor.getString(cursor.getColumnIndex("stockName"));
+		int lotSize = cursor.getInt(cursor.getColumnIndex("lotSize"));
+		int quantityOnHand = cursor.getInt(cursor.getColumnIndex("quantityOnHand"));
+		
+		cursor.close();
+
+		return new PortfolioItem(_stockCode, stockName, lotSize, quantityOnHand);
 	}
 }
