@@ -75,8 +75,16 @@ public class DatabaseCommunicate {
 	public static void createPortfolio(SQLiteDatabase database) {
 		database.execSQL("CREATE TABLE `Portfolio` (`stockCode` INTEGER NOT NULL, `stockName` TEXT NOT NULL, `lotSize` INTEGER NOT NULL, `quantityOnHand` INTEGER NOT NULL, PRIMARY KEY(stockCode));");
 	}
+	
+	public static void cleanupPortfolio(SQLiteDatabase database) {
+		database.execSQL("DELETE FROM `Portfolio`;");
+	}
+	
+	public static void dropPortfolio(SQLiteDatabase database) {
+		database.execSQL("DROP TABLE `Portfolio`;");
+	}
 
-	private static void addNewPortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem) {
+	public static void addNewPortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem) {
 		ContentValues values = new ContentValues();
 		values.put("stockCode", portfolioItem.getStockCode());
 		values.put("stockName", portfolioItem.getStockName());
@@ -95,6 +103,10 @@ public class DatabaseCommunicate {
 
 		database.update("Portfolio", values, "stockCode=?", new String[] { portfolioItem.getStockCode() + "" });
 	}
+	
+	private static void deletePortfolioItem(SQLiteDatabase database, int stockCode) {
+		database.delete("Portfolio", "stockCode=?", new String[] { stockCode + "" });
+	}
 
 	public static void addOrUpdatePortfolioItem(SQLiteDatabase database, PortfolioItem portfolioItem, boolean isBuying) {
 		if (!isPortfolioExist(database))
@@ -102,6 +114,8 @@ public class DatabaseCommunicate {
 		
 		if (isPortfolioItemExist(database, portfolioItem.getStockCode()))
 			updatePortfolioItem(database, portfolioItem, isBuying);
+		else if (portfolioItem.getQuantityOnHand() == 0 && !isBuying)
+			deletePortfolioItem(database, portfolioItem.getStockCode());
 		else
 			addNewPortfolioItem(database, portfolioItem);
 	}

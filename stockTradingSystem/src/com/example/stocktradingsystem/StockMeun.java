@@ -3,7 +3,6 @@ package com.example.stocktradingsystem;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
@@ -34,7 +33,6 @@ public class StockMeun extends Activity implements OnClickListener {
 		btnPieChart.setOnClickListener(this);
 		btnLogout = (Button) findViewById(R.id.btnLogout);
 		btnLogout.setOnClickListener(this);
-
 	}
 
 	public void onClick(View view) {
