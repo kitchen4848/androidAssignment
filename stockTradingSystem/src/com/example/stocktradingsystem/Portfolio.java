@@ -4,7 +4,6 @@ import com.example.stocktradingsystem.controller.*;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.view.MenuItem;
@@ -35,7 +34,7 @@ public class Portfolio extends Activity {
 				dataStr += String.format("\n%6s %-15s %7s %8s \n", pi.getStockCode(), pi.getStockName(), pi.getLotSize(), pi.getQuantityOnHand());
 			}
 		} catch (SQLiteException e) {
-			Toast.makeText(this, e.getMessage(), 1).show();
+			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 		
 		txtPortfolioData.setText(dataStr);

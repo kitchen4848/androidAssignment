@@ -109,20 +109,20 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		}
 	}
 	
-	private void GetPortfolioItemFromSelectingStock() {
-//		AsyncTask at = new Async
-		
-		if (selectingStock != null) {
-			try	{
-				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
-				selectingPortfolioItem = DatabaseCommunicate.getportfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
-				db.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
+//	private void GetPortfolioItemFromSelectingStock() {
+//		//AsyncTask at = new Async
+//		
+//		if (selectingStock != null) {
+//			try	{
+//				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
+//				selectingPortfolioItem = DatabaseCommunicate.getportfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
+//				db.close();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
+//			}
+//		}
+//	}
 
 	@Override
 	public void onClick(View v) {

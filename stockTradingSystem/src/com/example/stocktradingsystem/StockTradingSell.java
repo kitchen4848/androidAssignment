@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

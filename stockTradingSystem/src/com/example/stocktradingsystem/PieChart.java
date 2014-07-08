@@ -62,6 +62,7 @@ public class PieChart extends Activity {
 		int dataTotal;
 		float panelHeight = 0f;
 		float panelWidth = 0f;
+		Paint paint = new Paint();
 		
 		public Panel(Context context, Map<String, Integer> data, int dataTotal) {
 			super(context);
@@ -83,7 +84,6 @@ public class PieChart extends Activity {
 			super.onDraw(c);
 			float diameter = (panelHeight < panelWidth ? panelHeight : panelWidth) - 100;
 			RectF rec = getDrawingRegion(diameter);
-			Paint paint = new Paint();
 			paint.setStyle(Paint.Style.FILL);
 
 			// Make the entire canvas in white
@@ -119,8 +119,8 @@ public class PieChart extends Activity {
 			paint.setTypeface(Typeface.SERIF);
 			c.drawText(title, 20, 50, paint);
 
-			int vertSpace = getHeight() - 100;
-			paint.setTextSize(20);
+//			int vertSpace = getHeight() - 100;
+//			paint.setTextSize(20);
 //			for (int i = items.length - 1; i >= 0; i--) {
 //				// Draw the legend rect (20px SQ)
 //
