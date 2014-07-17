@@ -36,6 +36,6 @@
         android:layout_toLeftOf="@+id/btnSearch"
         android:ems="10"
         android:hint="Input symbol"
-        android:inputType="text" />
+        android:inputType="number|text" />
 
 </RelativeLayout>
