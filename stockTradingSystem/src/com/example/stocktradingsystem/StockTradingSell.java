@@ -119,7 +119,7 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 		if (selectingStock != null) {
 			try	{
 				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
-				selectingPortfolioItem = DatabaseCommunicate.getportfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
+				selectingPortfolioItem = DatabaseCommunicate.getPortfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
 				db.close();
 				
 				if (selectingPortfolioItem == null) {

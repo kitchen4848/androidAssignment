@@ -155,7 +155,7 @@ public class DatabaseCommunicate {
 		return ret;
 	}
 	
-	public static PortfolioItem getportfolioItemByStockCode(SQLiteDatabase database, int stockCode) {
+	public static PortfolioItem getPortfolioItemByStockCode(SQLiteDatabase database, int stockCode) {
 		if (!isPortfolioExist(database))
 			return null;
 
