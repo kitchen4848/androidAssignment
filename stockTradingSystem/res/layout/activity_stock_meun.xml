@@ -3,69 +3,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StockMeun" >
 
-    <Button
-        android:id="@+id/btnPortfolio"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="34dp"
-        android:text="Portfolio" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnLogout"
+        android:layout_below="@+id/lblMenu"
+        android:layout_marginTop="12dp" >
 
-    <Button
-        android:id="@+id/btnRealTimeStock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnPortfolio"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:text="Real Time Stock quotes " />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin" >
 
-    <Button
-        android:id="@+id/btnTrading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRealTimeStock"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="Simulate Trading" />
+            <Button
+                android:id="@+id/btnPortfolio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Portfolio" />
+
+            <Button
+                android:id="@+id/btnRealTimeStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnPortfolio"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="22dp"
+                android:text="Real Time Stock quotes " />
+
+            <Button
+                android:id="@+id/btnTrading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnRealTimeStock"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="22dp"
+                android:text="Simulate Trading" />
+
+            <Button
+                android:id="@+id/btnPieChart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/btnRecord"
+                android:layout_alignRight="@+id/btnRecord"
+                android:layout_below="@+id/btnTrading"
+                android:layout_marginTop="22dp"
+                android:text="Pie Chart" />
+
+            <Button
+                android:id="@+id/btnRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/btnPieChart"
+                android:layout_marginTop="22dp"
+                android:text="Stock Trading Record" />
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnPieChart"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/btnPieChart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:text="Logout" />
 
-    <Button
-        android:id="@+id/btnPieChart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnLogout"
-        android:layout_alignLeft="@+id/btnRecord"
-        android:layout_alignRight="@+id/btnRecord"
-        android:layout_marginBottom="24dp"
-        android:text="Pie Chart" />
-
-    <Button
-        android:id="@+id/btnRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnPieChart"
-        android:layout_alignLeft="@+id/btnTrading"
-        android:layout_alignRight="@+id/btnTrading"
-        android:layout_marginBottom="18dp"
-        android:text="Stock Trading Record" />
-
     <TextView
-        android:id="@+id/lblMeun"
+        android:id="@+id/lblMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
