@@ -92,6 +92,8 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		btnBuyBack.setOnClickListener(this);
 		btnBuyCheckout = (Button) findViewById(R.id.btnBuyCheckout);
 		btnBuyCheckout.setOnClickListener(this);
+		
+		GetPortfolioItemFromSelectingStock();
 	}
 
 	@Override
@@ -109,20 +111,24 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		}
 	}
 	
-//	private void GetPortfolioItemFromSelectingStock() {
-//		//AsyncTask at = new Async
-//		
-//		if (selectingStock != null) {
-//			try	{
-//				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
-//				selectingPortfolioItem = DatabaseCommunicate.getportfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
-//				db.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
-//			}
-//		}
-//	}
+	private void GetPortfolioItemFromSelectingStock() {
+		//AsyncTask at = new Async
+		
+		if (selectingStock != null) {
+			try	{
+				SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
+				selectingPortfolioItem = DatabaseCommunicate.getPortfolioItemByStockCode(db, Integer.parseInt(selectingStock.getSymbol()));
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(this, "Cannot fetch your portfolio records. Rejected.", Toast.LENGTH_SHORT).show();
+			}
+		}
+		
+		if (selectingPortfolioItem == null) { // no such PortfolioItem
+			selectingPortfolioItem = new PortfolioItem(Integer.parseInt(selectingStock.getSymbol()), selectingStock.getEnglish(), selectingStock.getLot(), 0);
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
