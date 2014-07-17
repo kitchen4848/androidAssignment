@@ -59,11 +59,11 @@ public class MainActivity extends Activity implements OnClickListener {
 						 * 1005			00066		MTR COOPOARTION	500		1000
 						 */
 						PortfolioItemCollection pic = new PortfolioItemCollection();
-						pic.add(new PortfolioItem(00001, 	"CHEUNG KONG", 		1000, 	2000));
-						pic.add(new PortfolioItem(00002, 	"CLP HOLDINGS", 	500, 	5000));
-						pic.add(new PortfolioItem(00003, 	"HK & CHINA GAS", 	1000, 	3000));
-						pic.add(new PortfolioItem(00005, 	"HSBC HOLDINGS", 	400, 	2000));
-						pic.add(new PortfolioItem(00066, 	"MTR COOPOARTION", 	500, 	1000));
+						pic.add(new PortfolioItem(1, 	"CHEUNG KONG", 		1000, 	2000));
+						pic.add(new PortfolioItem(2, 	"CLP HOLDINGS", 	500, 	5000));
+						pic.add(new PortfolioItem(3, 	"HK & CHINA GAS", 	1000, 	3000));
+						pic.add(new PortfolioItem(5, 	"HSBC HOLDINGS", 	400, 	2000));
+						pic.add(new PortfolioItem(66, 	"MTR COOPOARTION", 	500, 	1000));
 						
 //						SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(params[0]);
 						SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
