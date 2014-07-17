@@ -34,20 +34,19 @@
         android:layout_alignParentRight="true"
         android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/btnTradingBuy"
-        android:layout_width="0dp"
-        android:layout_weight=".5"
-        android:layout_height="wrap_content"
-        android:text="@string/buy" />
+        <Button
+            android:id="@+id/btnTradingBuy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="@string/buy" />
 
-    <Button
-        android:id="@+id/btnTradingSell"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        android:text="@string/sell" />
-
+        <Button
+            android:id="@+id/btnTradingSell"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="@string/sell" />
     </LinearLayout>
 
 </RelativeLayout>
