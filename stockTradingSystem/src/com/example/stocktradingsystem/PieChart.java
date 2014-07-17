@@ -1,8 +1,8 @@
 package com.example.stocktradingsystem;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import com.example.stocktradingsystem.controller.*;
 
@@ -31,7 +31,7 @@ public class PieChart extends Activity {
 		db.close();
 		
 
-		Map<String, Integer> data = new HashMap<String, Integer>();
+		TreeMap<String, Integer> data = new TreeMap<String, Integer>();
 		int dataTotal = 0;
 		for (PortfolioItem i : pic) {
 			data.put(i.getStockName(), i.getLotSize() * i.getQuantityOnHand());
@@ -58,19 +58,22 @@ public class PieChart extends Activity {
 	
 	class Panel extends View {
 		String title;
-		Map<String, Integer> data;
+		TreeMap<String, Integer> data;
+		ArrayList<String> keys = new ArrayList<String>(data.keySet());
 		int dataTotal;
 		float panelHeight = 0f;
 		float panelWidth = 0f;
 		Paint paint = new Paint();
 		
-		public Panel(Context context, Map<String, Integer> data, int dataTotal) {
+        int rColor[] = {Color.BLACK, Color.BLUE, Color.CYAN, Color.DKGRAY, Color.GRAY, Color.GREEN, Color.LTGRAY, Color.MAGENTA, Color.RED,
+        		Color.YELLOW};
+		
+		public Panel(Context context, TreeMap<String, Integer> data, int dataTotal) {
 			super(context);
 			this.data = data;
 			this.dataTotal = dataTotal;
 		}
-		
-		int rColor[] = { 0xffff0000, 0xffffff00, 0xff32cd32, 0xff880055 };
+
 		float cDegree = 0;
 		
 		@Override
@@ -96,9 +99,12 @@ public class PieChart extends Activity {
 			
 			float startAngle = 0;
 			
+			int total = 0;
+			
+			int drawing = 0;
 			for (Entry<String, Integer> item : data.entrySet()) {
 				// set color
-				paint.setColor(Color.GREEN);
+				paint.setColor(rColor[drawing++ % rColor.length]);
 				paint.setStrokeWidth(10);
 				paint.setStyle(Paint.Style.STROKE);
 				
@@ -109,6 +115,9 @@ public class PieChart extends Activity {
 				// Draw the arc (Radius of the pie = 200px)
 				float sweepAngle = item.getValue() * 360 / 100;
 				c.drawArc(rec, startAngle, sweepAngle, true, paint);
+				
+				total += item.getValue();
+				
 				startAngle += sweepAngle;
 			}
 
@@ -119,18 +128,23 @@ public class PieChart extends Activity {
 			paint.setTypeface(Typeface.SERIF);
 			c.drawText(title, 20, 50, paint);
 
-//			int vertSpace = getHeight() - 100;
-//			paint.setTextSize(20);
-//			for (int i = items.length - 1; i >= 0; i--) {
-//				// Draw the legend rect (20px SQ)
-//
-//				// ....
-//
-//				// Draw the label
-//
-//				// ....
-//
-//			}
+			int cBottom = getHeight() - 50;
+			paint.setTextSize(20);
+			
+			for (int i = data.entrySet().size(); i >= 0; i--) {
+				String key = keys.get(i);
+				int value = data.get(key);
+				
+				// Draw the legend rect (20px SQ)
+				paint.setColor(rColor[i % rColor.length]);
+	        	c.drawRect(rec.right, cBottom - 20, rec.right+20, cBottom, paint);
+
+				// Draw the label
+//				paint.setColor(rColor[i % rColor.length]);
+	        	c.drawText((key.length() > 15 ? key.substring(0, 12) + "..." : key) + " (" + value + " stocks)", rec.right+25, cBottom - 20, paint);
+	        	
+	        	cBottom -= 24;
+			}
 		}
 		
 		private Point getDeltaPoint(float x, float y, float length, float angle) {
