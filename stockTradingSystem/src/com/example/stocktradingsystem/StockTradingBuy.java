@@ -55,7 +55,8 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 		txtBuyStockSelectedStockBoardLotSize = (TextView) findViewById(R.id.txtBuyStockSelectedStockBoardLotSize);
 		edtBuyingPrice = (EditText) findViewById(R.id.edtBuyingPrice);
 		edtBuyingPrice.addTextChangedListener(new TextWatcher() {
-
+			
+			//auto display the stock details according to the input symbol
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
@@ -127,9 +128,11 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		//go back to previous page after the back button is clicked
 		case R.id.btnBuyBack:
 			this.finish();
 			break;
+		//buy the stock after clicked the buy button
 		case R.id.btnBuyCheckout:
 			if (selectingStock == null) {
 				Toast.makeText(this, "No current stock info. Rejected.", Toast.LENGTH_SHORT).show();
@@ -150,7 +153,8 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 				Toast.makeText(this, "You don't have that many lots to sell.", Toast.LENGTH_SHORT).show();
 				return;
 			}
-
+			
+			//ask for the user to confirm to buy the stock or not
 			dlgBuyConfirm = new AlertDialog.Builder(this).create();
 			dlgBuyConfirm.setCancelable(false); // This blocks the 'BACK' button
 			String msg = "Are you sure to buy:\n";
@@ -168,6 +172,7 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 	}
 
 	private void DisplayStockResultOnUI() {
+		//display error if the stock symbol cannot found
 		if (selectingStock == null) {
 			String errText = "(error)";
 
@@ -177,6 +182,7 @@ public class StockTradingBuy extends Activity implements OnClickListener, OnFocu
 			txtBuyStockSelectedStockBoardLotSize.setText(errText);
 			txtRequiredFeeToBuyValue.setText(errText);
 		} else {
+		//display the stock details
 			txtBuyStockSelectedStockName.setText(selectingStock.getEnglish());
 			txtBuyStockSelectedStockLastPos.setText(String.format("%.3f", selectingStock.getPrice()));
 			txtBuyStockSelectedStockHighLow.setText(String.format("%.3f / %.3f", selectingStock.getHigh(), selectingStock.getHigh()));

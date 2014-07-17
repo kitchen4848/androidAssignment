@@ -35,7 +35,7 @@ public class RealTimeStock extends Activity {
 		@Override
 		protected void onComplete(StockInfo result) {
 			String ret = "(error fetching data)";
-
+			
 			if (result != null) {
 				ret = "Mode: " + result.get_mode() + "\n";
 				ret += "Symbol: " + result.getSymbol() + "\n";
@@ -63,15 +63,17 @@ public class RealTimeStock extends Activity {
 				ret += "rsi: " + String.format("d10:%s \n%8s:" + result.getRd14() + " \n%8s:" + result.getRd20() + "", result.getRd10(), "d14", "d20");
 				ret += "ma: " + String.format("d10:%s \n%7s:" + result.getMd10() + " \n%7s:" + result.getMd20() + "", result.getMd50(), "d14", "d20") + "\nDate: " + result.getDate();
 			}
-
+			//display the real time stock information
 			txtRealTimeStockStockInfo.setText(ret);
 		}
 	}
-
+	
+	//display result after clicked the search button
 	public void clickedSearch(View view) {
 		symbol = txtSearch.getText().toString();
-
+		
 		FetchPageTask fetchPageTask = new FetchPageTask();
+		//display a tips when the user input a wrong symbol
 		if (!fetchPageTask.FindFromId(symbol)) {
 			Toast.makeText(getApplicationContext(), "Format of symbol is incorrect.", Toast.LENGTH_SHORT).show();
 		}

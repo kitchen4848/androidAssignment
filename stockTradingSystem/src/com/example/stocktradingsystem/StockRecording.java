@@ -73,6 +73,7 @@ public class StockRecording extends Activity {
 		return ret;
 	}
 	
+	//display  stock record
 	private void ShowingDataOnUI(ArrayList<HashMap<String, String>> result) {
 		lsvTradingRecordMain.setAdapter(new SimpleAdapter(this, getData(), android.R.layout.simple_list_item_2, new String[] { "title", "desc" }, new int[] { android.R.id.text1,
 			android.R.id.text2 }));

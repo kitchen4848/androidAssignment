@@ -58,7 +58,8 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 		txtSellStockSelectedStockHighLow = (TextView) findViewById(R.id.txtSellStockSelectedStockHighLow);
 		edtSellingPrice = (EditText) findViewById(R.id.edtSellingPrice);
 		edtSellingPrice.addTextChangedListener(new TextWatcher() {
-
+			
+			//show the stock details automatically according to the input symbol
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
@@ -139,9 +140,11 @@ public class StockTradingSell extends Activity implements OnFocusChangeListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		//back to the previous page when clicked the back button
 		case R.id.btnSellBack:
 			this.finish();
 			break;
+		//sell the stock when clicked the sell button
 		case R.id.btnSellCheckout:
 			if (selectingStock == null) {
 				Toast.makeText(this, "No current stock info. Rejected.", Toast.LENGTH_SHORT).show();

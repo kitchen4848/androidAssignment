@@ -26,6 +26,7 @@ public class Portfolio extends Activity {
 		String dataStr = String.format("%6s %-15s %7s %8s \n", "sCode", "stockName", "lotSize", "quantity");
 		
 		try {
+			//connect the database
 			SQLiteDatabase db = DatabaseCommunicate.getOpeningDatabaseObject(this);
 			PortfolioItemCollection pic = DatabaseCommunicate.getAllPortfolioItems(db);
 			db.close();
@@ -36,7 +37,7 @@ public class Portfolio extends Activity {
 		} catch (SQLiteException e) {
 			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
-		
+		//display the record in database
 		txtPortfolioData.setText(dataStr);
 	}
 

@@ -35,10 +35,12 @@ public class StockTrading extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		//go to the buy page after clicked the buy button
 		case R.id.btnTradingBuy:
 			Intent ittStockTradingBuy = new Intent(StockTrading.this, StockTradingBuy.class);
 			startActivity(ittStockTradingBuy);
 			break;
+		//go to the sell page after clicked the sell button
 		case R.id.btnTradingSell:
 			Intent ittStockTradingSell = new Intent(StockTrading.this, StockTradingSell.class);
 			startActivity(ittStockTradingSell);
