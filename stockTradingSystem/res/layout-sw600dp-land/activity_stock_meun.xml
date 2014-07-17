@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StockMeun" >
+
+    <TextView
+        android:id="@+id/lblMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:text="Meun"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/lblMenu"
+        android:layout_marginTop="32dp" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".33" >
+
+            <Button
+                android:id="@+id/btnPortfolio"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Portfolio" />
+
+            <Button
+                android:id="@+id/btnRealTimeStock"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Real Time Stock quotes " />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".33" >
+
+            <Button
+                android:id="@+id/btnTrading"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Simulate Trading" />
+
+            <Button
+                android:id="@+id/btnPieChart"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Pie Chart" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".34" >
+
+            <Button
+                android:id="@+id/btnRecord"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Stock Trading Record" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_margin="20dp"
+                android:layout_height="match_parent"
+                android:text="Logout" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
