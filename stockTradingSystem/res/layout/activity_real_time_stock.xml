@@ -23,8 +23,8 @@
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/txtPortfolioData"
-        android:layout_alignRight="@+id/txtPortfolioData"
+        android:layout_above="@+id/txtRealTimeStockStockInfo"
+        android:layout_alignRight="@+id/txtRealTimeStockStockInfo"
         android:text="Search" 
         android:onClick="clickedSearch"/>
 
@@ -32,6 +32,7 @@
         android:id="@+id/txtSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtRealTimeStockStockInfo"
         android:layout_toLeftOf="@+id/btnSearch"
         android:ems="10"
         android:hint="Input symbol"
