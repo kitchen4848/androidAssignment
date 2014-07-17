@@ -36,11 +36,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		btnLogin.setOnClickListener(this);
 		btnCancel = (Button) findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(this);
+		//load the saved user login information
 		load();
 	}
 
 	public void onClick(View view) {
 		switch (view.getId()) {
+		//check the user and password and login into the application when the user clicked the login button
 		case R.id.btnLogin:
 			if (txtUserName.getText().toString().equals("admin") && txtPassword.getText().toString().equals("admin")) {
 				// hard-code to put portfolio items into database
@@ -76,9 +78,11 @@ public class MainActivity extends Activity implements OnClickListener {
 //					}
 //				}.execute(this);
 				
+				//go to the meun
 				Intent intent = new Intent(MainActivity.this, StockMeun.class);
 				startActivity(intent);
-
+				
+				//save the user login information
 				SharedPreferences settings = getApplicationContext().getSharedPreferences("userDetails", 0);
 				SharedPreferences.Editor edit = settings.edit();
 				// edit.clear();
@@ -88,9 +92,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				this.finish();
 			} else {
+				//show the alert to user when input wrong password or username
 				ShowAlert();
 			}
 			break;
+		//quit the application if the user clicked the cancel button
 		case R.id.btnCancel:
 			this.finish();
 			break;
